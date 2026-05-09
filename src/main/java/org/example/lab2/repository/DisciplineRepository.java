@@ -1,0 +1,9 @@
+package org.example.lab2.repository;
+
+import org.example.lab2.entity.Discipline;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface DisciplineRepository extends JpaRepository<Discipline, Long> {}
+
