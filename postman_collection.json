@@ -1,0 +1,681 @@
+{
+    "info": {
+        "name": "Lab 2 University API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8081/api",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Groups (Группы)",
+            "item": [
+                {
+                    "name": "Get all groups",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/groups",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "groups"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get group by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/groups/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "groups",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create group",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/groups",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "groups"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Group A\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update group",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/groups/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "groups",
+                                "1"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Group A Updated\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete group",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/groups/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "groups",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Students (Студенты)",
+            "item": [
+                {
+                    "name": "Get all students",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/students",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "students"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get students by group ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/students?groupId=1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "students?groupId=1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get student by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/students/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "students",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create student",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/students",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "students"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"fullName\": \"\\u0418\\u0432\\u0430\\u043d\\u043e\\u0432 \\u0418\\u0432\\u0430\\u043d\",\n    \"groupId\": 1\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update student",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/students/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "students",
+                                "1"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"fullName\": \"\\u0418\\u0432\\u0430\\u043d\\u043e\\u0432 \\u0418\\u0432\\u0430\\u043d \\u041e\\u0431\\u043d\\u043e\\u0432\\u043b\\u0435\\u043d\\u043d\\u044b\\u0439\",\n    \"groupId\": 1\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete student",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/students/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "students",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Lectors (Преподаватели)",
+            "item": [
+                {
+                    "name": "Get all lectors",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/lectors",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "lectors"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get lector by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/lectors/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "lectors",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create lector",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/lectors",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "lectors"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"\\u041f\\u0435\\u0442\\u0440\\u043e\\u0432 \\u041f\\u0435\\u0442\\u0440\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update lector",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/lectors/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "lectors",
+                                "1"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"\\u041f\\u0435\\u0442\\u0440\\u043e\\u0432 \\u041f\\u0435\\u0442\\u0440 \\u041e\\u0431\\u043d\\u043e\\u0432\\u043b\\u0435\\u043d\\u043d\\u044b\\u0439\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete lector",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/lectors/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "lectors",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Disciplines (Дисциплины)",
+            "item": [
+                {
+                    "name": "Get all disciplines",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/disciplines",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "disciplines"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get discipline by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/disciplines/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "disciplines",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create discipline",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/disciplines",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "disciplines"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Math\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update discipline",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/disciplines/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "disciplines",
+                                "1"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Advanced Math\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete discipline",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/disciplines/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "disciplines",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Lessons (Занятия/Уроки)",
+            "item": [
+                {
+                    "name": "Get all lessons",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/lessons",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "lessons"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get lesson by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/lessons/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "lessons",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create lesson",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/lessons",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "lessons"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"disciplineId\": 1,\n    \"groupId\": 1,\n    \"lectorId\": 1,\n    \"date\": \"2023-10-15\",\n    \"lessonNumber\": 1\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update lesson",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/lessons/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "lessons",
+                                "1"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"disciplineId\": 1,\n    \"groupId\": 1,\n    \"lectorId\": 1,\n    \"date\": \"2023-10-16\",\n    \"lessonNumber\": 2\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete lesson",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/lessons/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "lessons",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Mark attendance",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/lessons/1/attendance",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "lessons",
+                                "1",
+                                "attendance"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"studentId\": 1,\n    \"status\": \"PRESENT\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}
