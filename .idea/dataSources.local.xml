@@ -31,5 +31,10 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
+    <data-source name="attendance" uuid="7d20bfb3-f90f-41fc-9a8d-04f2d567c169">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="H2" />
+      <user-name>postgres</user-name>
+      <schema-mapping />
+    </data-source>
   </component>
 </project>
