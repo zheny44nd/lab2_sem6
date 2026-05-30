@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import org.example.lab2.dto.ApiResponse;
 import org.example.lab2.dto.SimpleNameDto;
 import org.example.lab2.entity.StudentGroup;
-import org.example.lab2.repository.StudentGroupRepository;
+import org.example.lab2.service.StudentGroupService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,42 +13,35 @@ import java.util.List;
 @RequestMapping("/api/groups")
 public class StudentGroupController {
 
-    private final StudentGroupRepository repository;
+    private final StudentGroupService service;
 
-    public StudentGroupController(StudentGroupRepository repository) {
-        this.repository = repository;
+    public StudentGroupController(StudentGroupService service) {
+        this.service = service;
     }
 
     @GetMapping
     public ApiResponse<List<StudentGroup>> getAllGroups() {
-        return ApiResponse.success(repository.findAll()); // Список групп весь
+        return ApiResponse.success(service.findAll()); // Список групп весь
     }
 
     @GetMapping("/{id}")
     public ApiResponse<StudentGroup> getGroupById(@PathVariable Long id) {
-        return repository.findById(id)
-                .map(ApiResponse::success)
-                .orElseThrow(() -> new RuntimeException("Group not found"));
+        return ApiResponse.success(service.findById(id));
     }
 
     @PostMapping
     public ApiResponse<StudentGroup> createGroup(@RequestBody @Valid SimpleNameDto dto) {
-        StudentGroup group = new StudentGroup();
-        group.setName(dto.getName());
-        return ApiResponse.success(repository.save(group));
+        return ApiResponse.success(service.create(dto));
     }
 
     @PutMapping("/{id}")
     public ApiResponse<StudentGroup> updateGroup(@PathVariable Long id, @RequestBody @Valid SimpleNameDto dto) {
-        StudentGroup group = repository.findById(id).orElseThrow(() -> new RuntimeException("Group not found"));
-        group.setName(dto.getName());
-        return ApiResponse.success(repository.save(group));
+        return ApiResponse.success(service.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public ApiResponse<Void> deleteGroup(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.delete(id);
         return ApiResponse.success(null);
     }
 }
-

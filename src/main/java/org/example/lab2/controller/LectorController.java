@@ -4,8 +4,7 @@ import jakarta.validation.Valid;
 import org.example.lab2.dto.ApiResponse;
 import org.example.lab2.dto.SimpleNameDto;
 import org.example.lab2.entity.Lector;
-import org.example.lab2.repository.LectorRepository;
-import org.springframework.data.domain.PageRequest;
+import org.example.lab2.service.LectorService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,45 +13,37 @@ import java.util.List;
 @RequestMapping("/api/lectors")
 public class LectorController {
 
-    private final LectorRepository repository;
+    private final LectorService service;
 
-    public LectorController(LectorRepository repository) {
-        this.repository = repository;
+    public LectorController(LectorService service) {
+        this.service = service;
     }
 
     @GetMapping
     public ApiResponse<List<Lector>> getAllLectors(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        // Список преподавателей весь, но постранично (из требований)
-        return ApiResponse.success(repository.findAll(PageRequest.of(page, size)).getContent());
+        return ApiResponse.success(service.findAll(page, size));
     }
 
     @GetMapping("/{id}")
     public ApiResponse<Lector> getLectorById(@PathVariable Long id) {
-        return repository.findById(id)
-                .map(ApiResponse::success)
-                .orElseThrow(() -> new RuntimeException("Lector not found"));
+        return ApiResponse.success(service.findById(id));
     }
 
     @PostMapping
     public ApiResponse<Lector> createLector(@RequestBody @Valid SimpleNameDto dto) {
-        Lector lector = new Lector();
-        lector.setFullName(dto.getName());
-        return ApiResponse.success(repository.save(lector));
+        return ApiResponse.success(service.create(dto));
     }
 
     @PutMapping("/{id}")
     public ApiResponse<Lector> updateLector(@PathVariable Long id, @RequestBody @Valid SimpleNameDto dto) {
-        Lector lector = repository.findById(id).orElseThrow(() -> new RuntimeException("Lector not found"));
-        lector.setFullName(dto.getName());
-        return ApiResponse.success(repository.save(lector));
+        return ApiResponse.success(service.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public ApiResponse<Void> deleteLector(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.delete(id);
         return ApiResponse.success(null);
     }
 }
-

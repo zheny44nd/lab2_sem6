@@ -26,6 +26,24 @@ public class GlobalExceptionHandler {
         return ApiResponse.fail("INTEGRITY_VIOLATION", "Database constraint violated (e.g. non-unique name or deleting entity with dependent items)", Collections.singletonList(e.getMessage()));
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiResponse<Void> handleNotFound(ResourceNotFoundException e) {
+        return ApiResponse.fail("NOT_FOUND", e.getMessage(), null);
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ApiResponse<Void> handleUnauthorized(UnauthorizedException e) {
+        return ApiResponse.fail("UNAUTHORIZED", e.getMessage(), null);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiResponse<Void> handleBadRequest(BadRequestException e) {
+        return ApiResponse.fail("BAD_REQUEST", e.getMessage(), null);
+    }
+
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResponse<Void> handleRuntime(RuntimeException e) {

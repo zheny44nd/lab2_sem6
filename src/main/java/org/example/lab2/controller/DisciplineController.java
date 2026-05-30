@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import org.example.lab2.dto.ApiResponse;
 import org.example.lab2.dto.SimpleNameDto;
 import org.example.lab2.entity.Discipline;
-import org.example.lab2.repository.DisciplineRepository;
+import org.example.lab2.service.DisciplineService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,42 +13,35 @@ import java.util.List;
 @RequestMapping("/api/disciplines")
 public class DisciplineController {
 
-    private final DisciplineRepository repository;
+    private final DisciplineService service;
 
-    public DisciplineController(DisciplineRepository repository) {
-        this.repository = repository;
+    public DisciplineController(DisciplineService service) {
+        this.service = service;
     }
 
     @GetMapping
     public ApiResponse<List<Discipline>> getAllDisciplines() {
-        return ApiResponse.success(repository.findAll()); // Аналогично весь список
+        return ApiResponse.success(service.findAll()); // Аналогично весь список
     }
 
     @GetMapping("/{id}")
     public ApiResponse<Discipline> getDisciplineById(@PathVariable Long id) {
-        return repository.findById(id)
-                .map(ApiResponse::success)
-                .orElseThrow(() -> new RuntimeException("Discipline not found"));
+        return ApiResponse.success(service.findById(id));
     }
 
     @PostMapping
     public ApiResponse<Discipline> createDiscipline(@RequestBody @Valid SimpleNameDto dto) {
-        Discipline discipline = new Discipline();
-        discipline.setName(dto.getName());
-        return ApiResponse.success(repository.save(discipline));
+        return ApiResponse.success(service.create(dto));
     }
 
     @PutMapping("/{id}")
     public ApiResponse<Discipline> updateDiscipline(@PathVariable Long id, @RequestBody @Valid SimpleNameDto dto) {
-        Discipline discipline = repository.findById(id).orElseThrow(() -> new RuntimeException("Discipline not found"));
-        discipline.setName(dto.getName());
-        return ApiResponse.success(repository.save(discipline));
+        return ApiResponse.success(service.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public ApiResponse<Void> deleteDiscipline(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.delete(id);
         return ApiResponse.success(null);
     }
 }
-
