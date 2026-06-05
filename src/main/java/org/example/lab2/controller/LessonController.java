@@ -59,4 +59,12 @@ public class LessonController {
     public ApiResponse<Attendance> markAttendance(@PathVariable Long lessonId, @RequestBody @Valid AttendanceDto dto) {
         return ApiResponse.success(service.markAttendance(lessonId, dto));
     }
+
+    @GetMapping("/group/{groupId}")
+    public ApiResponse<List<LessonResponseDto>> getAttendanceForGroup(
+            @PathVariable Long groupId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return ApiResponse.success(service.getAttendanceForGroup(groupId, startDate, endDate));
+    }
 }

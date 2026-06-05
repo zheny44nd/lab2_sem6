@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -44,7 +46,7 @@ public class LessonService {
 
     public LessonResponseDto getLessonById(Long id) {
         Lesson lesson = lessonRepository.findById(id).orElseThrow(() -> new org.example.lab2.exception.ResourceNotFoundException("Lesson not found"));
-        return mapToDto(lesson);
+        return mapToDtoWithAttendance(lesson);
     }
 
     public LessonResponseDto createLesson(LessonDto dto) {
@@ -62,7 +64,7 @@ public class LessonService {
         lesson.setDate(dto.getDate());
         lesson.setLessonNumber(dto.getLessonNumber());
 
-        return mapToDto(lessonRepository.save(lesson));
+        return mapToDtoWithAttendance(lessonRepository.save(lesson));
     }
 
     public LessonResponseDto updateLesson(Long id, LessonDto dto) {
@@ -80,7 +82,7 @@ public class LessonService {
         lesson.setDate(dto.getDate());
         lesson.setLessonNumber(dto.getLessonNumber());
 
-        return mapToDto(lessonRepository.save(lesson));
+        return mapToDtoWithAttendance(lessonRepository.save(lesson));
     }
 
     public void deleteLesson(Long id) {
@@ -112,6 +114,21 @@ public class LessonService {
         return attendanceRepository.save(attendance);
     }
 
+    /**
+     * Get attendance records for a specific student group within a date range
+     */
+    @Transactional(readOnly = true)
+    public List<LessonResponseDto> getAttendanceForGroup(Long groupId, LocalDate startDate, LocalDate endDate) {
+        // Find all lessons for the group within the date range
+        List<Lesson> lessons = lessonRepository.findLessonsWithFilters(
+                startDate, endDate, groupId, null, PageRequest.of(0, Integer.MAX_VALUE))
+                .getContent();
+        
+        return lessons.stream()
+                .map(this::mapToDtoWithAttendance)
+                .toList();
+    }
+
     private LessonResponseDto mapToDto(Lesson l) {
         LessonResponseDto dto = new LessonResponseDto();
         dto.setId(l.getId());
@@ -123,6 +140,27 @@ public class LessonService {
         dto.setLectorName(l.getLector().getFullName());
         dto.setDate(l.getDate());
         dto.setLessonNumber(l.getLessonNumber());
+        return dto;
+    }
+    
+    private LessonResponseDto mapToDtoWithAttendance(Lesson l) {
+        LessonResponseDto dto = mapToDto(l);
+        
+        // Load attendance data for this lesson
+        List<Attendance> attendances = l.getAttendances();
+        if (attendances != null) {
+            List<LessonResponseDto.AttendanceInfo> attendanceInfos = attendances.stream()
+                    .map(att -> {
+                        LessonResponseDto.AttendanceInfo attInfo = new LessonResponseDto.AttendanceInfo();
+                        attInfo.setStudentId(att.getStudent().getId());
+                        attInfo.setStudentName(att.getStudent().getFullName());
+                        attInfo.setPresent(att.getIsPresent());
+                        return attInfo;
+                    })
+                    .toList();
+            dto.setAttendances(attendanceInfos);
+        }
+        
         return dto;
     }
 }

@@ -38,9 +38,13 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/groups/**", "/api/students/**", "/api/disciplines/**", "/api/lectors/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/groups/**", "/api/students/**", "/api/disciplines/**", "/api/lectors/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/groups/**", "/api/students/**", "/api/disciplines/**", "/api/lectors/**").hasRole("ADMIN")
-                // LECTOR and ADMIN can manage lessons
-                .requestMatchers("/api/lessons/**").hasAnyRole("ADMIN", "LECTOR")
-                // GET is allowed for all authenticated users
+                // LECTOR and ADMIN can manage lessons (POST, PUT, DELETE)
+                .requestMatchers(HttpMethod.POST, "/api/lessons/**").hasAnyRole("ADMIN", "LECTOR")
+                .requestMatchers(HttpMethod.PUT, "/api/lessons/**").hasAnyRole("ADMIN", "LECTOR")
+                .requestMatchers(HttpMethod.DELETE, "/api/lessons/**").hasAnyRole("ADMIN", "LECTOR")
+                // STUDENT can access attendance for their group and basic lesson info
+                .requestMatchers(HttpMethod.GET, "/api/lessons/group/**").hasAnyRole("STUDENT", "LECTOR", "ADMIN")
+                // GET is allowed for all authenticated users for basic data
                 .requestMatchers(HttpMethod.GET, "/api/**").authenticated()
                 .anyRequest().authenticated()
             )
