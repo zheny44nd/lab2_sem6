@@ -35,6 +35,6 @@ public class Lesson {
     @Column(nullable = false)
     private Integer lessonNumber;
 
-    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Attendance> attendances;
 }

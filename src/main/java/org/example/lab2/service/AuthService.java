@@ -39,6 +39,7 @@ public class AuthService {
         userRepository.save(user);
     }
 
+    @Transactional
     public String login(AuthRequest req) {
         AppUser user = userRepository.findByUsername(req.getUsername())
                 .orElseThrow(() -> new org.example.lab2.exception.UnauthorizedException("Invalid credentials"));

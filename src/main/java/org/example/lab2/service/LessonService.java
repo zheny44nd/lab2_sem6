@@ -11,9 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -41,7 +39,7 @@ public class LessonService {
         return lessonRepository.findLessonsWithFilters(
                 startDate, endDate, groupId, lectorId, PageRequest.of(page, size))
                 .getContent().stream()
-                .map(this::mapToDto).toList();
+                .map(this::mapToDtoWithAttendance).toList();
     }
 
     public LessonResponseDto getLessonById(Long id) {
@@ -146,7 +144,6 @@ public class LessonService {
     private LessonResponseDto mapToDtoWithAttendance(Lesson l) {
         LessonResponseDto dto = mapToDto(l);
         
-        // Load attendance data for this lesson
         List<Attendance> attendances = l.getAttendances();
         if (attendances != null) {
             List<LessonResponseDto.AttendanceInfo> attendanceInfos = attendances.stream()

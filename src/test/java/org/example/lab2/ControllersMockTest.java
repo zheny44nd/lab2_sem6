@@ -1,6 +1,5 @@
 package org.example.lab2;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.lab2.controller.*;
 import org.example.lab2.dto.*;
 import org.example.lab2.entity.*;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
@@ -34,9 +32,6 @@ public class ControllersMockTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @MockBean private DisciplineService disciplineService;
     @MockBean private LectorService lectorService;
